@@ -78,4 +78,230 @@ DOM node tree
 兄弟节点是拥有相同父节点的节点  
 在上面的 XML 中，<title> 元素是 <book> 元素的第一个子节点，而 <price> 元素是 <book> 元素的最后一个子节点。
 此外，<book> 元素是 <title>、<author>、<year> 以及 <price> 元素的父节点。
-Note: 父节点：Parent Node，子节点：Children Node，同级节点：Sibling Node
+Note: 父节点：Parent Node，子节点：Children Node，同级节点：Sibling Node.
+
+大多数浏览器都有读取和操作 XML 的内建 XML 解析器。
+解析器(XML Parser)把 XML 转换为 JavaScript 可访问的对象。
+解析器把 XML 载入内存，然后把它转换为可通过 JavaScript 访问的 XML DOM 对象。
+微软的 XML 解析器与其他浏览器中的解析器之间，存在一些差异。微软的解析器支持 XML 文件和 XML 字符串（文本）的加载，而其他浏览器使用单独的解析器。不过，所有的解析器都包含遍历 XML 树、访问插入及删除节点（元素）及其属性的函数。
+Note：当我们谈及 XML 解析，我们常常会使用有关 XML 元素的术语：节点。
+ 
+一、IE通过微软的 XML 解析器来加载 XML
+微软的 XML 解析器内建于 Internet Explorer 5 以及更高的版本中。
+下面的 JavaScript 片段把一个 XML 文档载入解析器中：
+var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+xmlDoc.async="false";
+xmlDoc.load("note.xml");
+例子解释：
+上面代码的第一个行创建一个空的微软 XML 文档对象。
+第二行关闭异步加载，这样确保在文档完全加载之前解析器不会继续脚本的执行。
+第三行告知解析器加载名为 "note.xml" 的 XML 文档。
+下面的 JavaScript 片段把字符串 txt 载入解析器：
+var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+xmlDoc.async="false";
+xmlDoc.loadXML(txt);
+注释：loadXML() 方法用于加载字符串（文本），load() 用于加载文件。
+二、Firefox 及其他浏览器中的 XML 解析器
+下面的 JavaScript 片段把 XML 文档 ("note.xml") 载入解析器：
+var xmlDoc=document.implementation.createDocument("","",null);
+xmlDoc.async="false";
+xmlDoc.load("note.xml");
+例子解释：
+上面代码的第一个行创建一个空的 XML 文档对象。
+第二行关闭异步加载，这样确保在文档完全加载之前解析器不会继续脚本的执行。
+第三行告知解析器加载名为 "note.xml" 的 XML 文档。
+下面的 JavaScript 片段把字符串 txt 载入解析器：
+var parser=new DOMParser();
+var xmlDoc=parser.parseFromString(txt,"text/xml");
+例子解释：
+上面代码的第一个行创建一个空的微软 XML 文档对象。
+第二行告知解析器载入名为 txt 的字符串。
+注释：DOMParser对象的parseFromString () 方法用于加载字符串（文本），load() 用于加载文件。
+三、跨域访问
+出于安全方面的原因，现代的浏览器不允许跨域的访问。
+假如你打算在自己的网页上使用上面的例子，则必须把 XML 文件放到自己的服务器上。否则，xmlDoc.load() 将产生错误 "Access is denied"。
+
+在详细介绍如何使用上面的方法前，我们先来了解下节点的主要属性。
+documentElement 属性：XML 文档的根节点。
+nodeName 属性：节点的名称(只读)。
+nodeValue 属性：节点的值。
+nodeType 属性：节点的类型。
+childNodes 属性：返回子节点集合。
+parentNode 属性：返回父节点。
+firstChild 属性：返回第一个子节点。
+lastChild 属性：返回最后一个子节点。
+nextSibling 属性：返回下一个兄弟（同级）节点。
+previousSibling 属性：返回前一个兄弟（同级）节点。
+
+nodeName 属性
+nodeName 属性规定节点的名称。
+nodeName 是只读的
+元素节点的 nodeName 与标签名相同
+属性节点的 nodeName 是属性的名称
+文本节点的 nodeName 永远是 #text
+文档节点的 nodeName 永远是 #document
+nodeValue 属性
+nodeValue 属性规定节点的值。
+元素节点的 nodeValue 是 undefined
+文本节点的 nodeValue 是文本自身
+属性节点的 nodeValue 是属性的值
+nodeType 属性
+nodeType 属性规定节点的类型。
+nodeType 是只读的。
+最重要的节点类型是：
+元素类型  节点类型
+元素  1
+属性  2
+文本  3
+注释  8
+文档  9
+
+
+您可以通过四种方法来访问节点：
+1、通过getElementsById() 方法。
+    用法： var xNode = xmlDoc.getElementsById('ID') ;
+    解释：这个方法我想大家已经很熟悉了。就是如果XML里有个id='ID'的Node，那个就返回这个Node节点，否则返回null。
+    在得到这个Node后，就可以用上面的属性进行访问了。
+    ps: xmlDoc的定义可以在上一篇文章中找到。
+
+
+2、通过getElementsByTagName() 方法。
+     用法：var arrNodes=xmlDoc.getElementsByTagName('TagName') ;
+     解释：这个方法是根据tagname返回一个数组。此方法最常用。
+     例子1：
+     //xml 内容： JavaScript操作XML (一)
+     var arrNodes=xmlDoc.getElementsByTagName("title");
+     for (i=0;i<arrNodes.length;i++)
+     { 
+       alert(arrNodes[i].childNodes[0].nodeValue);
+     }
+例子2：
+    // 获取第一个 <title> 元素节点的文本节点。注意，元素内的文本是元素的子节点，叫文本节点。
+     var xNode=xmlDoc.getElementsByTagName("title")[0].childNodes[0];
+     alert(xNode.nodeValue); // 文本节点的值 。output "Everyday Italian"
+ 
+3、通过循环（遍历）节点树。 
+    这个方法没什么好说的，就是用for循环结合childNodes遍历所以的节点。
+例子：
+x=xmlDoc.documentElement.childNodes;
+for (i=0;i<x.length;i++)//只遍历了一层
+{ 
+  document.write(x[i].nodeName);
+  document.write("<br />");
+}
+
+4、通过节点的关系在节点树中导航。 
+    这个方法是根据当前节点得到parentNode 、firstChild、lastChild、nextSibling 、previousSibling 来移动。
+x=xmlDoc.getElementsByTagName("book")[0].childNodes;
+y=xmlDoc.getElementsByTagName("book")[0].firstChild;
+for (i=0;i<x.length;i++)
+{
+  document.write(y.nodeName + "<br />");
+   y=y.nextSibling;
+}
+
+通过前面的介绍，我们知道XML文档中，主要是元素节点、属性节点和文本节点。
+下面详细介绍JavaScript是如何操作它们的。
+元素节点：
+查找：上一篇已介绍。主要是通过方法getElementsByTagName来查找定位。
+例子：
+//输出所有的titles
+var t=xmlDoc.getElementsByTagName("title");
+for (i=0;i<t.length;i++)
+{
+document.write(t[i].childNodes[0].nodeValue);
+document.write("<br />");
+}
+
+添加：主要是用createElement创建元素，然后用appendChild附加子节点的形式实现。
+例子：
+var newNode=xmlDoc.createElement("New Element Name");//创建元素节点
+var nodeBook =xmlDoc.getElementsByTagName("book")[0];//找到节点book
+nodeBook.appendChild(newNode);//把newNode作为子节点追加到父节点book的子节点后面。也就是说，要追加节点，必须先找到父节点。
+另外，还可以通过克隆的方式添加节点。
+cloneNode() 方法有一个参数（true 或 false）。该参数指示被复制的节点是否包括原节点的所有属性和子节点。
+例子：
+oldNode=xmlDoc.getElementsByTagName('book')[0];
+newNode=oldNode.cloneNode(true);// 克隆复制原节点以及所有属性和子节点
+xmlDoc.documentElement.appendChild(newNode);
+
+删除：父节点调用removeChild实现。
+例如：
+var nodeBook=xmlDoc.getElementsByTagName("book")[0];//找到节点book
+xmlDoc.documentElement.removeChild(nodeBook);//删除根节点下面的第一个book节点
+注意：删除某个节点，它下面的子节点也会被同时删除。
+
+修改：不允许直接修改元素。若真要修改可以用replaceChild间接完成。
+语法是: parentNode. replaceChild(newNode,oldNode)
+
+另外，元素没有nodeValue。若要修改元素内的文本，如修改<title>hello</title>里的hello，可参考下面的操作文本节点。
+
+文本节点：
+查找：查找文本节点不能直接用getElementsByTagName,而是先用它找到元素节点，然后再用childNodes[0]或firstChild来定位文本节点（因为它是以元素节点的第一个子节点的形式存在的），接着再用nodeValue即可得到文本内容。
+例子：
+var nodeTitle=xmlDoc.getElementsByTagName("title")[0];
+var titleTextNode=nodeTitle.childNodes[0];//也可以用firstChild
+var theTxt=titleTextNode.nodeValue;
+
+添加：类似于元素的添加方式，但文本的添加是通过createTextNode创建的(note:在XHTML也可以用innerHTML的方式添加)。
+例子：
+var edition=xmlDoc.createElement("edition");
+var newtext=xmlDoc.createTextNode("this is first");
+edition.appendChild(newtext);//在操作XHTML时, 上面这两行可直接用edition.innerHTML=’ this is first’代替;
+var nodeBook=xmlDoc.getElementsByTagName("book")[0];
+nodeBook.appendChild(edition);
+
+删除：父节点调用removeChild实现。当然也可以用清空nodeValue的方式实现。如textNode.nodeValue=’’。
+
+修改：textNode.nodeValue=’修改成你想要的文本内容’。
+另外，文本节点的修改也可以用replaceData()替换文本节点中的数据。
+replaceData() 方法有三个参数：
+offset - 在何处开始替换字符。Offset 值以 0 开始。 
+length - 要替换多少字符 。，
+string - 要插入的字符串。
+例子：
+xmlDoc.getElementsByTagName("title")[0].childNodes[0].replaceData(0,8,"hello");
+//note:其实完全可以用substr或者substring事先处理字符串，再赋值给nodeValue
+
+属性节点：
+查找：与元素节点不同，属性节点拥有文本值。获取属性的值的方法，就是获取它的文本值。可以通过使用 getAttribute() 方法或属性节点的 nodeValue 属性来完成这个任务。
+例子：
+xmlDoc.getElementsByTagName("title")[0].getAttribute("lang");//return “en”
+或者
+xmlDoc.getElementsByTagName("title")[0].getAttributeNode("lang"). nodeValue; //return “en”
+
+添加：用setAttribute或者setAttributeNode实现。
+例子：
+xmlDoc.getElementsByTagName('book')[0].setAttribute("edition","this is first");
+或者
+var newAtt=xmlDoc.createAttribute("edition");
+newAtt.nodeValue="this is first first";
+xmlDoc.getElementsByTagName("title")[0].setAttributeNode(newAtt);
+
+删除：可用removeAttribute(name)或者removeAttributeNode(node)
+例子：
+//方式1：removeAttribute
+//删除第一个 <book> 元素中的 "category" 属性：
+xmlDoc.getElementsByTagName("book")[0].removeAttribute("category");
+
+//方式2：removeAttributeNode 
+//删除所有 <book> 元素的所有属性
+x=xmlDoc.getElementsByTagName("book");
+for (i=0;i<x.length;i++)
+{
+while (x[i].attributes.length>0)
+  {
+  attnode=x[i].attributes[0];
+  old_att=x[i].removeAttributeNode(attnode);
+  }
+}
+
+
+修改：通过使用 setAttribute() 方法或属性节点的 nodeValue 属性来完成。
+例子：
+// setAttribute
+xmlDoc.getElementsByTagName('book')[0].setAttribute("category","child");
+//set nodeValue
+var x=xmlDoc.getElementsByTagName("book")[0]
+var y=x.getAttributeNode("category");
+y.nodeValue="child";
