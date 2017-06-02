@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel>
+	<root>
+		<Mrule label="MyMrule" description="" href="" id="0">
+			<mxCell />
+		</Mrule>
+		<Layer label="Default Layer" id="1">
+			<mxCell parent="0" />
+		</Layer>
+		<Start label="开始" description="开始" drugName="安络痛胶囊" id="2">
+			<mxCell style="symbol;image=images/symbols/event.png" parent="1"
+				vertex="1">
+				<mxGeometry x="20" y="210" width="48" height="48" as="geometry" />
+			</mxCell>
+		</Start>
+		<Condition label="药嘱.给药途径 属于 口服|鼻饲" description=""
+			createTime="0" express="prescription.adminRoute in 口服|鼻饲" attrName="prescription.adminRoute"
+			expr="in" exprName="属于" RightExpr="口服|鼻饲" id="16">
+			<mxCell style="rhombus" parent="1" vertex="1">
+				<mxGeometry x="283.5" y="210" width="128" height="48"
+					as="geometry" />
+			</mxCell>
+		</Condition>
+		<Edge label="给药途径" description="" createTime="0" express="" type="ROUTE"
+			expr="" exprName="" RightExpr="" leftType="" id="17">
+			<mxCell parent="1" source="2" target="16" edge="1">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Result label="" message="给药途径不合适。" severity="5" advice="本品宜口服给药。"
+			source="1个依据" sourceId="0" isEnabled="1" applyRange="0" applyObject="0"
+			analysisType="适宜性分析" analysisResultType="给药途径" createTime="1425954496434"
+			origMessageIds="undefined" id="18">
+			<mxCell style="result;fillColor=#FFD700" parent="1" vertex="1">
+				<mxGeometry x="598.3475643322845" y="201" width="206"
+					height="66" as="geometry" />
+			</mxCell>
+		</Result>
+		<Edge label="否" description="" createTime="0" express="is false"
+			type="EXPR" expr="is" exprName="=" RightExpr="false" leftType="Boolean"
+			id="19">
+			<mxCell parent="1" source="16" target="18" edge="1">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Condition label="药嘱.每次给药剂量 &gt;= 0.1g 且 &lt;= 0.2g"
+			description="" createTime="0"
+			express="prescription.adminDose between11 0.1g||0.2g" attrName="prescription.adminDose"
+			expr="between11" exprName="&gt;= 且 &lt;=" RightExpr="0.1g||0.2g" id="23">
+			<mxCell style="rhombus" parent="1" vertex="1">
+				<mxGeometry x="384.3475643322845" y="302.3686982341566"
+					width="128" height="48" as="geometry" />
+			</mxCell>
+		</Condition>
+		<Result label="" message="每次给药剂量不合适。" severity="4"
+			advice="本品宜每次给药0.1-0.2g（1-2粒）。" source="1个依据" sourceId="0" isEnabled="1"
+			applyRange="0" applyObject="0" analysisType="适宜性分析"
+			analysisResultType="用法用量" createTime="1425954517113" origMessageIds="undefined"
+			id="30">
+			<mxCell style="result" parent="1" vertex="1">
+				<mxGeometry x="604.3475643322845" y="286.3686982341566"
+					width="200" height="80" as="geometry" />
+			</mxCell>
+		</Result>
+		<Edge label="否" description="" createTime="0" express="is false"
+			type="EXPR" expr="is" exprName="=" RightExpr="false" leftType="Boolean"
+			id="32">
+			<mxCell parent="1" source="23" target="30" edge="1">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Result label="" message="给药频率不合适。" severity="4" advice="本品宜一日给药3-4次。"
+			source="1个依据" sourceId="0" isEnabled="1" applyRange="0" applyObject="0"
+			analysisType="适宜性分析" analysisResultType="用法用量" createTime="1425954529761"
+			origMessageIds="undefined" id="107">
+			<mxCell style="result" parent="1" vertex="1">
+				<mxGeometry x="604.3475643322845" y="386.3686982341566"
+					width="200" height="80" as="geometry" />
+			</mxCell>
+		</Result>
+		<Edge label="否" description="" createTime="0" express="is false"
+			type="EXPR" expr="is" exprName="=" RightExpr="false" leftType="Boolean"
+			id="108">
+			<mxCell parent="1" source="109" target="107" edge="1">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Condition label="药嘱.给药频率 &gt;= 3次/天 且 &lt;= 4次/天"
+			description="" createTime="0"
+			express="prescription.adminFrequency between11 3次/天||4次/天" attrName="prescription.adminFrequency"
+			expr="between11" exprName="&gt;= 且 &lt;=" RightExpr="3次/天||4次/天" id="109">
+			<mxCell style="rhombus" parent="1" vertex="1">
+				<mxGeometry x="374.3475643322845" y="394.3686982341566"
+					width="128" height="48" as="geometry" />
+			</mxCell>
+		</Condition>
+		<Merge label="合并" description="" createTime="0" id="114">
+			<mxCell style="symbol;image=images/symbols/merge.png" parent="1"
+				vertex="1">
+				<mxGeometry x="296.3475643322845" y="346.3686982341566"
+					width="48" height="48" as="geometry" />
+			</mxCell>
+		</Merge>
+		<Edge label="" description="" createTime="0" express="" type="MERGE"
+			expr="" exprName="" RightExpr="" leftType="" id="116">
+			<mxCell parent="1" source="114" target="109" edge="1">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Edge label="用法用量" description="" createTime="0" express="" type="ROUTE"
+			expr="" exprName="" RightExpr="" leftType="" id="134">
+			<mxCell parent="1" source="2" target="114" edge="1">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Text label="BJ" createTime="0" id="135">
+			<mxCell style="strokeColor=black;fillColor=white" parent="1"
+				vertex="1" connectable="0">
+				<mxGeometry x="-2" y="50" width="70" height="20" as="geometry" />
+			</mxCell>
+		</Text>
+		<Edge label="" description="" createTime="0" express="" type="MERGE"
+			expr="" exprName="" RightExpr="" leftType="" id="173">
+			<mxCell parent="1" source="114" target="23" edge="1">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Text label="yyf" createTime="0" id="174">
+			<mxCell style="strokeColor=black;fillColor=white" parent="1"
+				vertex="1" connectable="0">
+				<mxGeometry x="10" y="80" width="70" height="20" as="geometry" />
+			</mxCell>
+		</Text>
+		<Condition label="病人资料.性别 等于 女" description="" createTime="0"
+			express="patient.sex is F" attrName="patient.sex" expr="is" exprName="等于"
+			RightExpr="F" id="175">
+			<mxCell style="rhombus" vertex="1" parent="1">
+				<mxGeometry x="68" y="470" width="128" height="48" as="geometry" />
+			</mxCell>
+		</Condition>
+		<Edge label="患者教育" description="" createTime="0" express="" type="ROUTE"
+			expr="" exprName="" RightExpr="" leftType="" id="176">
+			<mxCell edge="1" parent="1" source="2" target="175">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Result label="" message="出血请用温水吞服，未出血请用白酒吞服；服药后1天内避免食用蚕豆、鱼类及酸冷食物。&#10;"
+			severity="1" advice="" source="0个依据" sourceId="" isEnabled="1"
+			applyRange="0" applyObject="0" analysisType="用药教育"
+			analysisResultType="患教标签" createTime="1495159797001" origMessageIds="1495159797001"
+			id="177">
+			<mxCell style="result" vertex="1" parent="1">
+				<mxGeometry x="280" y="500" width="200" height="80" as="geometry" />
+			</mxCell>
+		</Result>
+		<Edge label="否" description="" createTime="0" express="is false"
+			type="EXPR" expr="is" exprName="=" RightExpr="false" leftType="Boolean"
+			id="178">
+			<mxCell edge="1" parent="1" source="175" target="177">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Condition label="病人资料.是否怀孕 = true" description=""
+			createTime="0" express="patient.pregnancy is true" attrName="patient.pregnancy"
+			expr="is" exprName="=" RightExpr="true" id="179">
+			<mxCell style="rhombus" vertex="1" parent="1">
+				<mxGeometry x="120" y="630" width="128" height="48" as="geometry" />
+			</mxCell>
+		</Condition>
+		<Edge label="是" description="" createTime="0" express="is true"
+			type="EXPR" expr="is" exprName="=" RightExpr="true" leftType="Boolean"
+			id="180">
+			<mxCell edge="1" parent="1" source="175" target="179">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Result label=""
+			message="出血请用温水吞服，未出血请用白酒吞服；服药后1天内避免食用蚕豆、鱼类及酸冷食物；孕期避免使用，或请咨询医生。&#10;"
+			severity="1" advice="" source="0个依据" sourceId="" isEnabled="1"
+			applyRange="0" applyObject="0" analysisType="用药教育"
+			analysisResultType="患教标签" createTime="1495159937768" origMessageIds=""
+			id="181">
+			<mxCell style="result" vertex="1" parent="1">
+				<mxGeometry x="96" y="780" width="200" height="80" as="geometry" />
+			</mxCell>
+		</Result>
+		<Edge label="是" description="" createTime="0" express="is true"
+			type="EXPR" expr="is" exprName="=" RightExpr="true" leftType="Boolean"
+			id="182">
+			<mxCell edge="1" parent="1" source="179" target="181">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Condition label="病人资料.年龄 &gt;= 18岁 且 &lt; 50岁" description=""
+			createTime="0" express="patient.age between10 18岁||50岁" attrName="patient.age"
+			expr="between10" exprName="&gt;= 且 &lt;" RightExpr="18岁||50岁" id="183">
+			<mxCell style="rhombus" vertex="1" parent="1">
+				<mxGeometry x="330" y="670" width="128" height="48" as="geometry" />
+			</mxCell>
+		</Condition>
+		<Edge label="否" description="" createTime="0" express="is false"
+			type="EXPR" expr="is" exprName="=" RightExpr="false" leftType="Boolean"
+			id="184">
+			<mxCell edge="1" parent="1" source="179" target="183">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Edge label="否" description="" createTime="0" express="is false"
+			type="EXPR" expr="is" exprName="=" RightExpr="false" leftType="Boolean"
+			id="185">
+			<mxCell edge="1" parent="1" source="183" target="177">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+		<Result label=""
+			message="出血请用温水吞服，未出血请用白酒吞服；服药后1天内避免食用蚕豆、鱼类及酸冷食物；用药期间避免怀孕，如准备怀孕请咨询医生。&#10;"
+			severity="1" advice="" source="0个依据" sourceId="" isEnabled="1"
+			applyRange="0" applyObject="0" analysisType="用药教育"
+			analysisResultType="患教标签" createTime="1495160061110" origMessageIds=""
+			id="186">
+			<mxCell style="result" vertex="1" parent="1">
+				<mxGeometry x="390" y="780" width="200" height="80" as="geometry" />
+			</mxCell>
+		</Result>
+		<Edge label="是" description="" createTime="0" express="is true"
+			type="EXPR" expr="is" exprName="=" RightExpr="true" leftType="Boolean"
+			id="187">
+			<mxCell edge="1" parent="1" source="183" target="186">
+				<mxGeometry relative="1" as="geometry" />
+			</mxCell>
+		</Edge>
+	</root>
+</mxGraphModel>

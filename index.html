@@ -4,41 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>javascript解析xml</title>
-    <script type="text/javascript">
-    function show() {
-    	debugger
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        if (xmlhttp != null) {
-            xmlhttp.open("GET", "aaa51.xml", false);
-            xmlhttp.send(null);
-            var responsexml = xmlhttp.responseXML;
-            var menus = responsexml.getElementsByTagName("Menus")[0];
-            var html = "";
-            for (var i = 0; i < menus.childNodes.length; i++) {
-                var menu = menus.childNodes[i];
-                html = html + "<h1>" + menu.getAttribute("name") + "</h1>";
-                html = html + "<h2>" + menu.childNodes[0].getAttribute("name") + "</h2>";
-                for (var j = 0; j < menu.childNodes[0].childNodes.length; j++) {
-                    var mi = menu.childNodes[0].childNodes[j];
-                    var url = mi.getAttribute("url");
-                    var txt = mi.childNodes[0].nodeValue;
-                    html = html + " <a href=\"" + url + "\">" + txt + "</a>";
-                }
-            }
-            document.getElementById("tb").innerHTML = html;
-        } else {
-            alert("你用的什么浏览器？");
-        }
-    }
-    </script>
+    <script type="text/javascript" src="./index.js"></script>
 </head>
-<body onload="show()">
-<div id="td"></div>
-
+<body>
 </body>
-
 </html>
+

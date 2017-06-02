@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel>
+	<root>
+		<Condition description="" label="病人资料.基本信息.患者年龄  2岁" RightExpr="2岁" exprName="" expr="" express="病人资料.基本信息.患者年龄 ; 2岁" attrName="病人资料.基本信息.患者年龄" createTime="1322916578793" id="75">
+			
+		</Condition>
+	</root>
+</mxGraphModel>

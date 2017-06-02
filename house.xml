@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<address>
+    <city name="北京">
+        <price>150万</price>
+        <type>一室三居</type>
+    </city>
+    <city name="上海">
+        <price>200万 </price>
+    </city>
+    <city name="杭州">
+        <price>230万</price>
+    </city>
+    <city name="南京"></city>
+</address>

@@ -1,0 +1,15 @@
+<mxGraphModel>
+    <root>
+    <Mrule label="MyMrule" description="" href="" id="0">
+        <mxCell/>
+    </Mrule>
+    <Layer label="Default Layer" id="1">
+        <mxCell parent="0"/>
+   </Layer>
+        <Start label="开始" description="开始" id="2">
+	        <mxCell style="symbol;image=images/symbols/event.png" vertex="1" parent="1">
+	            <mxGeometry x="110" y="140" width="48" height="48" as="geometry"/>
+	        </mxCell>
+        </Start>
+     </root>
+</mxGraphModel>
